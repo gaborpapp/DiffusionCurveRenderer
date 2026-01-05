@@ -10,8 +10,13 @@ DiffusionCurveRenderer::Window::Window(QWindow* parent)
     : QOpenGLWindow(QOpenGLWindow::UpdateBehavior::NoPartialUpdate, parent)
 
 {
-    QSurfaceFormat format = QSurfaceFormat::defaultFormat();
+    QSurfaceFormat format;
+    format.setRenderableType(QSurfaceFormat::OpenGL);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setVersion(4, 5);
     format.setSamples(8);
+    format.setDepthBufferSize(24);
+    format.setStencilBufferSize(8);
     setFormat(format);
 
     connect(this, &QOpenGLWindow::frameSwapped, [=]()

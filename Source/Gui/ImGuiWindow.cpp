@@ -6,6 +6,7 @@
 #include "Util/Logger.h"
 
 #include <QFileDialog>
+#include <QTimer>
 #include <QtImGui.h>
 #include <cmath>
 #include <imgui.h>
@@ -146,61 +147,67 @@ void DiffusionCurveRenderer::ImGuiWindow::DrawMenuBar()
         {
             if (ImGui::MenuItem("Open an image for vectorization"))
             {
-                QString path = QFileDialog::getOpenFileName(nullptr, "Select an image", "", "*.png *.jpg *.jpeg *.bmp");
-
-                if (path.isNull() == false)
-                {
-                    qDebug() << "ImGuiWindow::DrawMenuBar(Select an image): Path is" << path;
-                    emit LoadImage(path);
-                }
+                // Defer file dialog to avoid ImGui frame sync issues
+                QTimer::singleShot(0, this, [this]() {
+                    QString path = QFileDialog::getOpenFileName(nullptr, "Select an image", "", "*.png *.jpg *.jpeg *.bmp");
+                    if (!path.isNull())
+                    {
+                        qDebug() << "ImGuiWindow::DrawMenuBar(Select an image): Path is" << path;
+                        emit LoadImage(path);
+                    }
+                });
             }
 
             ImGui::Separator();
 
             if (ImGui::MenuItem("Import XML"))
             {
-                QString path = QFileDialog::getOpenFileName(nullptr, "Select XML File", "", "*.xml");
-
-                if (path.isNull() == false)
-                {
-                    qDebug() << "ImGuiWindow::DrawMenuBar(Import XML): Path is" << path;
-                    emit ImportXml(path);
-                }
+                QTimer::singleShot(0, this, [this]() {
+                    QString path = QFileDialog::getOpenFileName(nullptr, "Select XML File", "", "*.xml");
+                    if (!path.isNull())
+                    {
+                        qDebug() << "ImGuiWindow::DrawMenuBar(Import XML): Path is" << path;
+                        emit ImportXml(path);
+                    }
+                });
             }
 
             if (ImGui::MenuItem("Import JSON"))
             {
-                QString path = QFileDialog::getOpenFileName(nullptr, "Select JSON File", "", "*.json");
-
-                if (path.isNull() == false)
-                {
-                    qDebug() << "ImGuiWindow::DrawMenuBar(Import JSON): Path is" << path;
-                    emit ImportJson(path);
-                }
+                QTimer::singleShot(0, this, [this]() {
+                    QString path = QFileDialog::getOpenFileName(nullptr, "Select JSON File", "", "*.json");
+                    if (!path.isNull())
+                    {
+                        qDebug() << "ImGuiWindow::DrawMenuBar(Import JSON): Path is" << path;
+                        emit ImportJson(path);
+                    }
+                });
             }
 
             ImGui::Separator();
 
             if (ImGui::MenuItem("Save as PNG"))
             {
-                QString path = QFileDialog::getSaveFileName(nullptr, "PNG File", "", "*.png");
-
-                if (path.isNull() == false)
-                {
-                    qDebug() << "ImGuiWindow::DrawMenuBar(Save as PNG): Path is" << path;
-                    emit SaveAsPng(path);
-                }
+                QTimer::singleShot(0, this, [this]() {
+                    QString path = QFileDialog::getSaveFileName(nullptr, "PNG File", "", "*.png");
+                    if (!path.isNull())
+                    {
+                        qDebug() << "ImGuiWindow::DrawMenuBar(Save as PNG): Path is" << path;
+                        emit SaveAsPng(path);
+                    }
+                });
             }
 
             if (ImGui::MenuItem("Export as JSON"))
             {
-                QString path = QFileDialog::getSaveFileName(nullptr, "JSON File", "", "*.json");
-
-                if (path.isNull() == false)
-                {
-                    qDebug() << "ImGuiWindow::DrawMenuBar(Export as JSON): Path is" << path;
-                    emit ExportAsJson(path);
-                }
+                QTimer::singleShot(0, this, [this]() {
+                    QString path = QFileDialog::getSaveFileName(nullptr, "JSON File", "", "*.json");
+                    if (!path.isNull())
+                    {
+                        qDebug() << "ImGuiWindow::DrawMenuBar(Export as JSON): Path is" << path;
+                        emit ExportAsJson(path);
+                    }
+                });
             }
 
             ImGui::EndMenu();

@@ -25,7 +25,7 @@ namespace DiffusionCurveRenderer
         RendererManager() = default;
 
         void Initialize();
-        void Resize(int width, int height);
+        void Resize(int width, int height, float pixelRatio = 1.0f);
 
         void Clear();
         void RenderDiffusion();

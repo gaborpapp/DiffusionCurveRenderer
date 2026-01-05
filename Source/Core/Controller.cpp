@@ -242,7 +242,7 @@ void DiffusionCurveRenderer::Controller::Resize(int width, int height)
     mWindow->makeCurrent();
     mCamera->Resize(mWidth, mHeight, mDevicePixelRatio);
 
-    mRendererManager->Resize(mWidth, mHeight);
+    mRendererManager->Resize(mWidth, mHeight, mDevicePixelRatio);
     mWindow->doneCurrent();
 }
 

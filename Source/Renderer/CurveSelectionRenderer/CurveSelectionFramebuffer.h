@@ -18,7 +18,7 @@ namespace DiffusionCurveRenderer
     class CurveSelectionFramebuffer : protected QOpenGLFunctions_4_5_Core
     {
       public:
-        CurveSelectionFramebuffer(int width, int height);
+        CurveSelectionFramebuffer(int width, int height, float pixelRatio = 1.0f);
         ~CurveSelectionFramebuffer();
 
         void Clear();
@@ -34,6 +34,7 @@ namespace DiffusionCurveRenderer
 
         int mWidth;
         int mHeight;
+        float mPixelRatio{ 1.0f };
     };
 
     using CurveSelectionFramebufferPtr = std::shared_ptr<CurveSelectionFramebuffer>;

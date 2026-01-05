@@ -81,7 +81,7 @@ DiffusionCurveRenderer::CurveQueryInfo DiffusionCurveRenderer::CurveSelectionRen
     return mFramebuffer->Query(queryPoint);
 }
 
-void DiffusionCurveRenderer::CurveSelectionRenderer::Resize(int width, int height)
+void DiffusionCurveRenderer::CurveSelectionRenderer::Resize(int width, int height, float pixelRatio)
 {
-    mFramebuffer = std::make_shared<CurveSelectionFramebuffer>(width, height);
+    mFramebuffer = std::make_shared<CurveSelectionFramebuffer>(width, height, pixelRatio);
 }

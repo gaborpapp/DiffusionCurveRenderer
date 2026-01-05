@@ -2,9 +2,10 @@
 
 #include "Util/Logger.h"
 
-DiffusionCurveRenderer::CurveSelectionFramebuffer::CurveSelectionFramebuffer(int width, int height)
+DiffusionCurveRenderer::CurveSelectionFramebuffer::CurveSelectionFramebuffer(int width, int height, float pixelRatio)
     : mWidth(width)
     , mHeight(height)
+    , mPixelRatio(pixelRatio)
 {
     initializeOpenGLFunctions();
 
@@ -60,7 +61,10 @@ DiffusionCurveRenderer::CurveQueryInfo DiffusionCurveRenderer::CurveSelectionFra
     CurveQueryInfo info;
     Bind();
     glReadBuffer(GL_COLOR_ATTACHMENT0);
-    glReadPixels(queryPoint.x(), mHeight - queryPoint.y(), 1, 1, GL_RGBA_INTEGER, GL_INT, &info);
+    // Scale logical pixel coordinates to physical pixel coordinates
+    int physicalX = static_cast<int>(queryPoint.x() * mPixelRatio);
+    int physicalY = static_cast<int>(queryPoint.y() * mPixelRatio);
+    glReadPixels(physicalX, mHeight - physicalY, 1, 1, GL_RGBA_INTEGER, GL_INT, &info);
 
     return info;
 }

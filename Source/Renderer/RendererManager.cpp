@@ -32,9 +32,9 @@ void DiffusionCurveRenderer::RendererManager::Initialize()
     SetFramebufferSize(DEFAULT_FRAMEBUFFER_SIZE);
 }
 
-void DiffusionCurveRenderer::RendererManager::Resize(int width, int height)
+void DiffusionCurveRenderer::RendererManager::Resize(int width, int height, float pixelRatio)
 {
-    mCurveSelectionRenderer->Resize(width, height);
+    mCurveSelectionRenderer->Resize(width, height, pixelRatio);
 }
 
 void DiffusionCurveRenderer::RendererManager::Clear()

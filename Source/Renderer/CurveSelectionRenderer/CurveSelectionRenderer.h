@@ -21,7 +21,7 @@ namespace DiffusionCurveRenderer
         void Render();
         CurveQueryInfo Query(const QPoint& queryPoint);
 
-        void Resize(int width, int height);
+        void Resize(int width, int height, float pixelRatio = 1.0f);
 
       private:
         Shader* mCurveSelectionShader;

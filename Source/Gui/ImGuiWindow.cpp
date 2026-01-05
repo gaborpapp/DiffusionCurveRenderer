@@ -210,6 +210,18 @@ void DiffusionCurveRenderer::ImGuiWindow::DrawMenuBar()
                 });
             }
 
+            if (ImGui::MenuItem("Export as XML"))
+            {
+                QTimer::singleShot(0, this, [this]() {
+                    QString path = QFileDialog::getSaveFileName(nullptr, "XML File", "", "*.xml");
+                    if (!path.isNull())
+                    {
+                        qDebug() << "ImGuiWindow::DrawMenuBar(Export as XML): Path is" << path;
+                        emit ExportAsXml(path);
+                    }
+                });
+            }
+
             ImGui::EndMenu();
         }
 

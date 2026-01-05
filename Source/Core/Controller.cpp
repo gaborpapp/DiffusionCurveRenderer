@@ -98,6 +98,11 @@ DiffusionCurveRenderer::Controller::Controller(QObject* parent)
                 Exporter::ExportAsJson(mCurveContainer->GetCurves(), path); //
             });
 
+    connect(mImGuiWindow, &ImGuiWindow::ExportAsXml, this, [=](const QString& path)
+            {
+                Exporter::ExportAsXml(mCurveContainer->GetCurves(), path); //
+            });
+
     connect(mImGuiWindow, &ImGuiWindow::ImportXml, this, [=](const QString& path)
             {
                 const auto& curves = Importer::ImportFromXml(path);
